@@ -1,6 +1,6 @@
 {
   "name": "@retro_ig/poopoo-api-package",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -9,5 +9,9 @@
   },
   "description": "A very cool package to interact with the Poo Poo API Easily",
   "author": "retro_ig",
-  "private": false
+  "private": false,
+  "repository": {
+    "url": "https://www.npmjs.com/package/@retro_ig/poopoo-api-package"
+  },
+  "homepage": "https://www.npmjs.com/package/@retro_ig/poopoo-api-package#README"
 }
