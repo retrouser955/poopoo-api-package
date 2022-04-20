@@ -16,7 +16,10 @@ yarn add @retro_ig/poopoo-api-package
 ## Example
 ```js
 const { PooPooAPI } = require('@retro_ig/poopoo-api-package')
-const api = new PooPooAPI()
+const api = new PooPooAPI({
+    logError: true, //this will log node-fetch errors
+    logAction: true //this will log every action
+})
 const apiTest = async () => {
     //password generation
     let pass = await api.passwordGenerator()
