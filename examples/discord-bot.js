@@ -22,4 +22,4 @@ client.on('messageCreate', async (message) => {
         })
     }
 })
-client.login('SuP3R-S3cR3t-t0K3n')
+client.login(settings.token)
