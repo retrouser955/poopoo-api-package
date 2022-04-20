@@ -2,6 +2,17 @@
 
 This is unofficial btw
 
+# Installing the package
+
+npm
+```
+npm i @retro_ig/poopoo-api-package
+```
+yarn
+```
+yarn add @retro_ig/poopoo-api-package
+```
+
 ## Example
 ```js
 const { PooPooAPI } = require('@retro_ig/poopoo-api-package')
