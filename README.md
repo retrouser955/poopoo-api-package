@@ -49,7 +49,12 @@ const apiTest = async () => {
     const ytSearch = await api.youtubeSearch('Alan Walker Faded')
     console.log(ytSearch.results[0].title)
     // Web Screenshot
-    const link = await api.webScreenShot('https://discord.com', true/**if you want the package to turn it into a discord message attachment**/)
+    /** 
+     * the first option is the site
+     * second option is a boolean and it tells the package to turn the link into a discord message attachment
+     * the third option is the file name and this is optional
+     * **/
+    const link = await api.webScreenShot('https://discord.com', true, 'discord.png')
     console.log(link)
 }
 apiTest()

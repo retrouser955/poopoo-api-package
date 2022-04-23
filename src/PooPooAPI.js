@@ -291,7 +291,7 @@ class PooPooAPI {
      * @param {boolean} enableDiscordAttachment 
      * @returns {object || string} Returns a discord message attachment or a url
      */
-    async webScreenShot(site, enableDiscordAttachment) {
+    async webScreenShot(site, enableDiscordAttachment, fileName) {
         if(!site) throw new Error('PooPooAPI Error: site must be a non-empty string')
         try {
             new URL(site) 
@@ -301,7 +301,7 @@ class PooPooAPI {
         let msgAttachment
         if(enableDiscordAttachment) {
             try {
-                msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/image?url=${site}`, 'unknown.png')
+                msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/image?url=${site}`, fileName || 'unknown.png')
             } catch (error) {
                 console.warn(`PooPooAPI Warning: API timeout`)
             }

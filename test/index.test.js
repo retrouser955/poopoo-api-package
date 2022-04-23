@@ -25,7 +25,7 @@ const apiTest = async () => {
     // console.log(ytSearch.results[0].title)
     // const roman = await api.romanNumeralsConverter('69')
     // console.log(roman)
-    const link = await api.webScreenShot('https://discord.com', true)
+    const link = await api.webScreenShot('https://discord.com', true, 'discord.png')
     console.log(link)
 }
 apiTest()
