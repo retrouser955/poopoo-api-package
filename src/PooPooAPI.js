@@ -1,8 +1,11 @@
 const fetch = (...args) => import('node-fetch').then(({
     default: fetch
 }) => fetch(...args))
+const { MessageAttachment } = require('discord.js')
+const axios = require('axios').default;
 const generatePassword = require('./passwordgenerate.js')
 const listsGetRandomItem =  require('./listGetRandom.js')
+const fs = require('fs')
 class PooPooAPI {
     /**
      * @param {string} options options for the package
@@ -249,11 +252,11 @@ class PooPooAPI {
      */
     async youtubeSearch(quary) {
         if(!quary) throw new Error('PooPooAPI Error: quary must be a non-empty string')
-        if(this.logAction == true ) console.log('PooPooAPI Logs: youtube search has started processing.')
+        if(this.logAction == true) console.log('PooPooAPI Logs: youtube search has started processing.')
         try {
             const res = await fetch(`https://poopoo-api.vercel.app/api/youtube/video?search=${quary}`)
             const data = await res.json()
-            if(this.logAction == true ) console.log('PooPooAPI Logs: youtube finished has started processing.')
+            if(this.logAction == true) console.log('PooPooAPI Logs: youtube has finished processing.')
             return data
         } catch (e) {
             console.warn(`PooPooAPI Warning: There was an error while connecting to the API`)
@@ -261,6 +264,51 @@ class PooPooAPI {
             console.log(e)
             return null
         }
+    }
+    /**
+     * 
+     * @param {string} input The number(s) you want to translate
+     * @returns {string} Translated number(s)
+     */
+    async romanNumeralsConverter(input) {
+        if(!input) throw new Error('PooPooAPI Error: number must be a non-empty string')
+        if(this.logAction == true) console.log('PooPooAPI Logs: Roman Numerals Converter search has started processing.')
+        try {
+            const res = await fetch(`https://poopoo-api.vercel.app/api/roman?input=${input}`)
+            const data = await res.json()
+            if(this.logAction == true) console.log('PooPooAPI Logs: Roman Numerals Converter has finished processing.')
+            return data.output
+        } catch (error) {
+            console.warn(`PooPooAPI Warning: There was an error while connecting to the API`)
+            if(this.error == false) return
+            console.log(e)
+            return null
+        }
+    }
+    /**
+     * 
+     * @param {string} site URL of the site you want to screenshot
+     * @param {boolean} enableDiscordAttachment 
+     * @returns {object || string} Returns a discord message attachment or a url
+     */
+    async webScreenShot(site, enableDiscordAttachment) {
+        if(!site) throw new Error('PooPooAPI Error: site must be a non-empty string')
+        try {
+            new URL(site) 
+        } catch {
+            throw new Error('PooPooAPI Error: site must be a valid site')
+        }
+        let msgAttachment
+        if(enableDiscordAttachment) {
+            try {
+                msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/image?url=${site}`, 'unknown.png')
+            } catch (error) {
+                console.warn(`PooPooAPI Warning: API timeout`)
+            }
+        } else {
+            msgAttachment = `https://poopoo-api.vercel.app/api/image?url=${site}`
+        }
+        return msgAttachment
     }
 }
 module.exports = PooPooAPI

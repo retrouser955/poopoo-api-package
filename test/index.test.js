@@ -21,7 +21,11 @@ const apiTest = async () => {
     // console.log(spoilers)
     // const emoji = await api.emojiRemover('cjidoalcnoaskl🛣')
     // console.log(emoji)
-    const ytSearch = await api.youtubeSearch('MEMORIES! 347aidian')
-    console.log(ytSearch.results[0].title)
+    // const ytSearch = await api.youtubeSearch('MEMORIES! 347aidian')
+    // console.log(ytSearch.results[0].title)
+    // const roman = await api.romanNumeralsConverter('69')
+    // console.log(roman)
+    const link = await api.webScreenShot('https://discord.com', true)
+    console.log(link)
 }
 apiTest()
