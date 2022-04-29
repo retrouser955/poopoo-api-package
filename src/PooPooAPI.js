@@ -2,13 +2,11 @@ const fetch = (...args) => import('node-fetch').then(({
     default: fetch
 }) => fetch(...args))
 const { MessageAttachment } = require('discord.js')
-const axios = require('axios').default;
 const generatePassword = require('./passwordgenerate.js')
 const listsGetRandomItem =  require('./listGetRandom.js')
-const fs = require('fs')
 class PooPooAPI {
     /**
-     * @param {string} options options for the package
+     * @param {object} options options for the package
      */
     constructor(options) {
         if(!options) throw new Error('PooPooAPI Error: The Options must be defined')
@@ -80,7 +78,6 @@ class PooPooAPI {
     }
     async passwordGenerator() {
         /**
-         * @param {object} passwordAndRecoveryCode
          * @returns {object} returns a password and a recover code as an object
          */
         try {
@@ -285,30 +282,91 @@ class PooPooAPI {
             return null
         }
     }
-    /**
-     * 
-     * @param {string} site URL of the site you want to screenshot
-     * @param {boolean} enableDiscordAttachment 
-     * @returns {object || string} Returns a discord message attachment or a url
-     */
-    async webScreenShot(site, enableDiscordAttachment, fileName) {
-        if(!site) throw new Error('PooPooAPI Error: site must be a non-empty string')
-        try {
-            new URL(site) 
-        } catch {
-            throw new Error('PooPooAPI Error: site must be a valid site')
-        }
-        let msgAttachment
-        if(enableDiscordAttachment) {
+
+    image = {
+        /**
+         * 
+         * @param {string} imageURL Url of the image
+         * @param {boolean} enableDiscordAttachment if you want to turn it into a discord msg attachment or not
+         * @param {string} fileName The file name for discord msg attachment
+         * @returns 
+         */
+        async invertColor(imageURL, enableDiscordAttachment, fileName) {
+            if(!imageURL) throw new Error('PooPooAPI Error: site must be a non-empty string')
             try {
-                msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/image?url=${site}`, fileName || 'unknown.png')
-            } catch (error) {
-                console.warn(`PooPooAPI Warning: API timeout`)
+                new URL(imageURL) 
+            } catch {
+                throw new Error('PooPooAPI Error: site must be a valid site')
             }
-        } else {
-            msgAttachment = `https://poopoo-api.vercel.app/api/image?url=${site}`
+            let msgAttachment
+            if(enableDiscordAttachment) {
+                try {
+                    msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/invert?url=${imageURL}`, fileName || 'unknown.png')
+                } catch (error) {
+                    console.warn('PooPooAPI Warn: API Timeout')
+                    return undefined
+                }
+            } else {
+                msgAttachment = `https://poopoo-api.vercel.app/api/invert?url=${imageURL}`;
+            }
+            return msgAttachment
+        },
+        /**
+         * 
+         * @param {string} site URL of the site you want to screenshot
+         * @param {boolean} enableDiscordAttachment 
+         * @param {string} fileName the file name for discord chat
+         * @returns {object || string} Returns a discord message attachment or a url
+         */
+        async webScreenShot(site, enableDiscordAttachment, fileName) {
+            if(!site) throw new Error('PooPooAPI Error: site must be a non-empty string')
+            try {
+                new URL(site) 
+            } catch {
+                throw new Error('PooPooAPI Error: site must be a valid site')
+            }
+            let msgAttachment
+            if(enableDiscordAttachment) {
+                try {
+                    msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/image?url=${site}`, fileName || 'unknown.png')
+                } catch (error) {
+                    console.warn(`PooPooAPI Warning: API timeout`)
+                    return undefined
+                }
+            } else {
+                msgAttachment = `https://poopoo-api.vercel.app/api/image?url=${site}`
+            }
+            return msgAttachment
+        },
+        /**
+         * 
+         * @param {number} strength the strength of the pixlate image
+         * @param {string} site the image site
+         * @param {boolean} enableDiscordAttachment turns it into a discord msg attachment
+         * @param {string} fileName the file name for discord chat
+         * @returns {object || string} Returns a discord message attachment or a url
+         */
+        async pixlateImage(strength, site, enableDiscordAttachment, fileName) {
+            if(!site) throw new Error('PooPooAPI Error: site must be a non-empty string')
+            try {
+                new URL(site) 
+            } catch {
+                throw new Error('PooPooAPI Error: site must be a valid site')
+            }
+            if(strength) throw new Error('PooPooAPI Error: Strength must be defined')
+            if(typeof strength != "number") throw new SyntaxError('PooPooAPI Error: Strength must be a non-empty number')
+            if(enableDiscordAttachment) {
+                try {
+                    msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/pixel?strength=${number}&url=${site}`, fileName || 'unknown.png')
+                } catch {
+                    console.warn('PooPooAPI Warn: API timeout')
+                    return undefined
+                }
+            } else {
+                msgAttachment = `https://poopoo-api.vercel.app/api/pixel?strength=${number}&url=${site}`
+            }
+            return msgAttachment
         }
-        return msgAttachment
     }
 }
 module.exports = PooPooAPI

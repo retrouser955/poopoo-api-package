@@ -1,6 +1,6 @@
 {
   "name": "@retro_ig/poopoo-api-package",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -13,5 +13,6 @@
   "repository": {
     "url": "https://github.com/retrouser955/poopoo-api-package"
   },
-  "homepage": "https://github.com/retrouser955/poopoo-api-package#readme"
+  "homepage": "https://github.com/retrouser955/poopoo-api-package#readme",
+  "keywords": ["api", "api-wrapper", "multipurpose"]
 }

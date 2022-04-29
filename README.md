@@ -24,38 +24,7 @@ const apiTest = async () => {
     //password generation
     let pass = await api.passwordGenerator()
     console.log(pass)
-    //is valid url
-    let url = await api.isValidUrl('https://google.com')
-    console.log(url)
-    //Random Questions
-    let apiQotd = await api.qotd()
-    console.log(apiQotd)
-    //github data
-    const github = await api.githubUserData('retrouser955')
-    console.log(github)
-    //binary encoder
-    const binary = await api.binaryEncoder('Hello World!')
-    console.log(binary)
-    //binary decoder
-    const decodedText = await api.binaryDecoder('01101000 01101001')
-    console.log(decodedText)
-    //annoying discord spoilers
-    const spoilers = await api.discordSpoilers('Hello World!')
-    console.log(spoilers)
-    //remove emoji from text
-    const emoji = await api.emojiRemover('Hello Road 🛣')
-    console.log(emoji)
-    //yt search
-    const ytSearch = await api.youtubeSearch('Alan Walker Faded')
-    console.log(ytSearch.results[0].title)
-    // Web Screenshot
-    /** 
-     * the first option is the site
-     * second option is a boolean and it tells the package to turn the link into a discord message attachment
-     * the third option is the file name and this is optional
-     * **/
-    const link = await api.webScreenShot('https://discord.com', true, 'discord.png')
-    console.log(link)
 }
 apiTest()
 ```
+If you want further information on the API, check out the [Documentation](https://github.com/retrouser955/poopoo-api-package/blob/main/docs/1.0.0.md) and the [API website](https://poopoo-api.vercel.app/)
