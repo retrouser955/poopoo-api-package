@@ -366,6 +366,72 @@ class PooPooAPI {
                 msgAttachment = `https://poopoo-api.vercel.app/api/pixel?strength=${number}&url=${site}`
             }
             return msgAttachment
+        },
+        /**
+         * 
+         * @param {string} text 
+         * @param {boolean} enableDiscordAttachment 
+         * @param {string} fileName 
+         * @returns 
+         */
+        async pikachu(text, enableDiscordAttachment, fileName) {
+            if(!text) throw new Error('PooPooAPI Error: Text must be a non empty string')
+            let msgAttachment
+            if(enableDiscordAttachment) {
+                try {
+                    msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/pikachu?text=${text}`, fileName || 'unknown.png')
+                } catch {
+                    console.warn('PooPooAPI Warn: API timeout')
+                    return undefined
+                }
+            } else {
+                msgAttachment = `https://poopoo-api.vercel.app/api/pikachu?text=${text}`
+            }
+            return msgAttachment
+        },
+        /**
+         * 
+         * @param {string} image
+         * @param {boolean} enableDiscordAttachment 
+         * @param {string} fileName 
+         * @returns {string} message attachment
+         */
+        async gun(image, enableDiscordAttachment, fileName) {
+            if(!image) throw new Error('PooPooAPI Error: Image must be a non-empty string')
+            let msgAttachment;
+            if(enableDiscordAttachment) {
+                try {
+                    msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/gun?url=${image}`, fileName || 'unkown.png')
+                } catch {
+                    console.warn('PooPooAPI Warn: API timeout')
+                    return undefined
+                }
+            } else {
+                msgAttachment = `https://poopoo-api.vercel.app/api/gun?url=${image}`
+            }
+            return msgAttachment
+        },
+        /**
+         * 
+         * @param {string} image 
+         * @param {boolean} enableDiscordAttachment 
+         * @param {string} fileName 
+         * @returns 
+         */
+        async ad(image, enableDiscordAttachment, fileName) {
+            if(!image) throw new Error('PooPooAPI Error: Image URL must be defined');
+            let msgAttachment
+            if(enableDiscordAttachment) {
+                try {
+                    msgAttachment = new MessageAttachment(`https://poopoo-api.vercel.app/api/image/ad?url=${image}`, fileName || 'unknown.png')
+                } catch {
+                    console.warn('PooPooAPI Warn: API timeout')
+                    return undefined
+                }
+            } else {
+                msgAttachment = `https://poopoo-api.vercel.app/api/image/ad?url=${image}`
+            }
+            return msgAttachment
         }
     }
 }
